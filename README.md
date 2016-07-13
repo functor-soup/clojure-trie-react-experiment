@@ -18,7 +18,14 @@ link is here :-> https://github.com/callemall/material-ui-webpack-example/tree/4
 So what I'm saying is you thought I'm a smart cookie, I'm not harr harr.
 However the modified parts are mine. So maybe I'm a smart cookie crumb (heehee)
 
+## In Action
+
+![alt tag](videos/in_action.gif)
+
+
 ## Note for future me
 
 The whole axios `this` problem was solved via this little tip
 https://github.com/goatslacker/alt/issues/283
+
+
