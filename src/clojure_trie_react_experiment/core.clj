@@ -35,10 +35,13 @@
     (take 10))))
 
 (defroutes app
-  (GET "/" []  (resp/resource-response "index.html" {:root "public"}) )
+  (GET "/" []
+    (resp/content-type (resp/resource-response "index.html" {:root "public"}) "text/html"))
   (GET "/alpha/:x" [x] (resp/content-type (handler_ x) "text/json"))
   (route/not-found "not found: monkeys will investiagte"))
 
 
 (def site
-    (wrap-defaults app site-defaults))
+  (-> app
+      (wrap-defaults  site-defaults)
+      (wrap-json-response)))
