@@ -32,12 +32,12 @@ class Main extends Component {
     this.handleUpdate = this.handleUpdate.bind(this)
   }
 
-  handleUpdate(input) { 
+  handleUpdate(input) {
     var self = this;
-    get(`http://localhost:9000/${input}`)
+    get(`/alpha/${input}`)
      .then(function(value){
         self.setState({
-            dataSource:value.data 
+            dataSource:value.data
            });
        })
     }
