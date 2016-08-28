@@ -1,7 +1,10 @@
 (ns clojure-trie-react-experiment.core
-  (:require [clojure.java.io :as io])
+  (:require [clojure.java.io :as io]
+            [compojure.core :refer :all]
+            [compojure.route :as route]
+            [ring.middleware.defaults :refer :all]
+            [ring.util.response :as resp ])
   (:use ring.middleware.params
-        ring.util.response
         ring.adapter.jetty
         [ring.middleware.json :only [wrap-json-response]]))
 
@@ -24,14 +27,20 @@
   (with-open [rdr (io/reader "/usr/share/dict/words")]
     (doall (map #(swap! trie add-to-trie %) (line-seq rdr)))))
 
+(defn handler_
+  [x]
+  (let [word x]
+    (resp/response  (->> word
+                         (prefix-matches @trie)
+                         (take 10)))))
 
-(defn handler
-  [{params :uri}]
-  (let [word (subs params 1)]
-    (response  (->> word
-                    (prefix-matches @trie)
-                    (take 10)))))
 
-(def app
-    (wrap-json-response handler))
-;;(run-jetty (wrap-json-response handler) {:port 9000})
+
+(defroutes app
+  (GET "/" []  (resp/resource-response "index.html" {:root "public"}) )
+  (GET "/alpha/:x" [x] (resp/content-type (handler_ x) "text/json"))
+  (route/not-found "not found: monkeys will investiagte"))
+
+
+(def site
+    (wrap-defaults app site-defaults))
