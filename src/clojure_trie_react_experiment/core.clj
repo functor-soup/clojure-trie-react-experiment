@@ -28,13 +28,11 @@
     (doall (map #(swap! trie add-to-trie %) (line-seq rdr)))))
 
 (defn handler_
-  [x]
-  (let [word x]
-    (resp/response  (->> word
-                         (prefix-matches @trie)
-                         (take 10)))))
-
-
+  [word]
+  (resp/response
+   (->> word
+    (prefix-matches @trie)
+    (take 10))))
 
 (defroutes app
   (GET "/" []  (resp/resource-response "index.html" {:root "public"}) )
