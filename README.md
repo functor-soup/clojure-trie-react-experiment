@@ -7,8 +7,7 @@ react, and react-material
 
 `lein ring server 9000` to start off the clojure server (do this from the base directory)
 
-`cd client && npm install && npm start` to start off the client
-
+The server serves the frontend immediately.
 
 ## Disclosure
 
@@ -28,4 +27,7 @@ However the modified parts are mine. So maybe I'm a smart cookie crumb (heehee)
 The whole axios `this` problem was solved via this little tip
 https://github.com/goatslacker/alt/issues/283
 
+## Todo
+
+1. One round of tests 
 
